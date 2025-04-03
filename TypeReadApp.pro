@@ -21,6 +21,8 @@ FORMS += \
     settingswindow.ui \
     typingwindow.ui
 
+win32:RC_FILE = iconRC.rc
+
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
