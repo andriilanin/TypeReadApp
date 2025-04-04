@@ -28,7 +28,7 @@ void initializeJsonFile(const QString& filePath) {
             file.close();
 
         } else {
-            qWarning() << "Ошибка создания файла:" << file.errorString();
+            qWarning() << "Error:" << file.errorString();
         }
     }
 }
@@ -37,7 +37,7 @@ void initializeJsonFile(const QString& filePath) {
 void TypingWindow::initFromJsonFile(const QString& filePath) {
     QFile file(filePath);
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        qWarning() << "Не удалось открыть файл:" << filePath;
+        qWarning() << "File not opened:" << filePath;
         return;
     }
 
@@ -46,7 +46,7 @@ void TypingWindow::initFromJsonFile(const QString& filePath) {
 
     QJsonDocument document = QJsonDocument::fromJson(jsonData);
     if (document.isNull()) {
-        qWarning() << "Ошибка парсинга JSON.";
+        qWarning() << "JSON parsing error.";
         return;
     }
 
@@ -67,7 +67,7 @@ void TypingWindow::incremCurrentBookProgress() {
 
     QJsonDocument document = QJsonDocument::fromJson(jsonData);
     if (document.isNull()) {
-        qWarning() << "Ошибка парсинга JSON.";
+        qWarning() << "JSON parsing error.";
         return;
     }
 
@@ -97,7 +97,7 @@ void TypingWindow::updateCheckBoxStateInJsonFile(const QString CheckBoxName, boo
 
     QJsonDocument document = QJsonDocument::fromJson(jsonData);
     if (document.isNull()) {
-        qWarning() << "Ошибка парсинга JSON.";
+        qWarning() << "JSON parsing error.";
         return;
     }
 
@@ -118,6 +118,9 @@ TypingWindow::TypingWindow(QWidget *parent)
     , ui(new Ui::TypingWindow)
 {
     ui->setupUi(this);
+    ui->ctrlOLabel->hide();
+    ui->ctrlVLabel->hide();
+    ui->ctrlNLabel->hide();
     QString filePath = "settings.json";
     initializeJsonFile(filePath);
     initFromJsonFile(filePath);
@@ -254,7 +257,7 @@ int TypingWindow::loadBookProgressFromJson() {
 
     QJsonDocument document = QJsonDocument::fromJson(jsonData);
     if (document.isNull()) {
-        qWarning() << "Ошибка парсинга JSON.";
+        qWarning() << "JSON parsing error.";
         return 0;
     }
 
@@ -287,7 +290,6 @@ std::vector<Letter> TextToLettersObj(QString textToConvert) {
 }
 
 std::vector<Letter> getFirstNFromAll(int N) {
-    // Ограничиваем N размером вектора
     N = std::min(N, static_cast<int>(allTextLetters.size()));
     if (N == 0)
         return {};
@@ -413,8 +415,8 @@ QString TypingWindow::replaceSomeSymbolsIn(QString &text) {
 };
 
 void TypingWindow::keyPressEvent(QKeyEvent *event) {
+    qDebug() << event->text();
     if (event->text() == "\u000F") { // ctrl + O
-        qDebug() << "Нажат шорткат налаштувань!";
 
         settingsWindow = new SettingsWindow();
 
@@ -438,6 +440,11 @@ void TypingWindow::keyPressEvent(QKeyEvent *event) {
         replaceSomeSymbolsIn(text);
         qDebug() << text;
         initText(text);
+    } else  if (event->text() == "\u0013") {
+        ui->ctrlOLabel->setHidden(!ui->ctrlOLabel->isHidden());
+        ui->ctrlVLabel->setHidden(!ui->ctrlVLabel->isHidden());
+        ui->ctrlNLabel->setHidden(!ui->ctrlNLabel->isHidden());
+        ui->ctrlSLabel->setText((ui->ctrlOLabel->isHidden() ? "CTRL+S - show shortcuts": "CTRL+S - hide shortcuts"));
     } else {
 
         if (event->text() != "") {
@@ -455,7 +462,7 @@ void TypingWindow::keyPressEvent(QKeyEvent *event) {
                 };
 
 
-                if (currentFirstNotPressed->getChar(ignoreCase) == event->text() || event->text() == "\u001A") { /* "\u001A" (CTRL + Z) SKIP LETTERS */
+                if (currentFirstNotPressed->getChar(ignoreCase) == event->text() || event->text() == "\u000E") {
 
                     if (this->currentBookFilePath != "No loaded book") incremCurrentBookProgress();
                     currentFirstNotPressed->setCurrent(false);
