@@ -1,8 +1,8 @@
-﻿# TypeFocus — A Tool for Improving Concentration and Typing Skills
+﻿# TypeReadApp — A Tool for Improving Concentration and Typing Skills
 
 ## Project Description
 
-TypeFocus is a lightweight, user-friendly reading assistant designed specifically for individuals who struggle with focus and concentration. The application allows you to paste any text from the clipboard or open FB2-format eBooks. As the user types, the text—initially displayed in light gray—gradually turns black letter by letter, providing a clear, step-by-step reading and typing experience.
+TypeReadApp is a lightweight, user-friendly reading assistant designed specifically for individuals who struggle with focus and concentration. The application allows you to paste any text from the clipboard or open FB2-format eBooks. As the user types, the text—initially displayed in light gray—gradually turns black letter by letter, providing a clear, step-by-step reading and typing experience.
 
 ## Key Features
 
