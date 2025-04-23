@@ -19,9 +19,8 @@ TypeReadApp is a lightweight, user-friendly reading assistant designed specifica
 ## Usage
 
 1. Past text from clipboard by pressing **ctrl+V**, or in options(ctrl+O) choose **Open book file**, and select your **FB2** book file.
-2. Load your text or book.
-3. Start typing in the input pane; the text will progressively reveal itself.
-4. Your reading progress is saved to the local database.
+2. Start typing in the input pane; the text will progressively reveal itself.
+3. Your reading progress is saved to the local database.
 
 ## Psychological Benefits
 
